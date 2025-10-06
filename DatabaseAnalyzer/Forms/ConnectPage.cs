@@ -14,7 +14,7 @@ namespace DatabaseAnalyzer.Forms
 
             connectionsSplitContainer.Panel2Collapsed = true;
             lastSelectedIndex = -1;
-            
+
             detailsPanel.Paint += DetailsPanel_Paint;
             connectionsCheckedListBox.MouseDown += ConnectionsCheckedListBox_MouseDown;
             connectionsCheckedListBox.SelectedIndexChanged += ConnectionsCheckedListBox_SelectedIndexChanged;
@@ -22,6 +22,8 @@ namespace DatabaseAnalyzer.Forms
             customControlsPanel.AddClicked += (s, e) => AddConnection();
             customControlsPanel.EditClicked += (s, e) => EditConnection();
             customControlsPanel.DeleteClicked += (s, e) => DeleteConnection();
+
+            SetButtonsAvailability();
         }
 
         private void DetailsPanel_Paint(object? sender, PaintEventArgs e)
@@ -30,6 +32,18 @@ namespace DatabaseAnalyzer.Forms
             {
                 e.Graphics.DrawRectangle(pen, 0, 0, detailsPanel.Width - 1, detailsPanel.Height - 1);
             }
+        }
+
+        private void ConnectPage_Load(object? sender, EventArgs e)
+        {
+            SetButtonsAvailability();
+
+            connectionsCheckedListBox.ItemCheck += ConnectionsCheckedListBox_ItemCheck;
+        }
+
+        private void ConnectionsCheckedListBox_ItemCheck(object? sender, ItemCheckEventArgs e)
+        {
+            this.BeginInvoke(new Action(SetButtonsAvailability));
         }
 
         private void ConnectionsCheckedListBox_SelectedIndexChanged(object? sender, EventArgs e)
@@ -88,16 +102,8 @@ namespace DatabaseAnalyzer.Forms
                 lastSelectedIndex = -1;
                 return;
             }
-            
+
             connectionsCheckedListBox.SelectedIndex = idx;
-        }
-
-        private void SetButtonsAvailability()
-        {
-            bool isSelected = connectionsCheckedListBox.SelectedIndex != -1;
-
-            customControlsPanel.EnableEditButton = isSelected;
-            customControlsPanel.EnableDeleteButton = isSelected;
         }
 
         private void AddConnection()
@@ -114,11 +120,12 @@ namespace DatabaseAnalyzer.Forms
 
         private void EditConnection()
         {
-            int idx = connectionsCheckedListBox.SelectedIndex;
-            if (idx == -1)
+            if (connectionsCheckedListBox.CheckedItems.Count != 1)
                 return;
 
+            int idx = connectionsCheckedListBox.CheckedIndices[0];
             var editModal = new AddConnectionModal(_connections[idx]);
+
             if (editModal.ShowDialog() == DialogResult.OK)
             {
                 _connections[idx] = editModal._connection;
@@ -128,17 +135,37 @@ namespace DatabaseAnalyzer.Forms
 
         private void DeleteConnection()
         {
-            int idx = connectionsCheckedListBox.SelectedIndex;
-            if (idx != -1)
+            int checkedCount = connectionsCheckedListBox.CheckedItems.Count;
+            if (checkedCount == 0)
+                return;
+
+            var result = MessageBox.Show(
+                $"Are you sure you want to delete {checkedCount} selected connection(s)?",
+                "Confirm Deletion",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
             {
-                var result = MessageBox.Show("Are you sure you want to delete the selected connection?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
+                var indicesToRemove = connectionsCheckedListBox.CheckedIndices.Cast<int>().OrderByDescending(i => i).ToList();
+
+                foreach (var idx in indicesToRemove)
                 {
                     _connections.RemoveAt(idx);
                     connectionsCheckedListBox.Items.RemoveAt(idx);
-                    connectionsCheckedListBox.SelectedIndex = -1;
                 }
+
+                connectionsCheckedListBox.ClearSelected();
+                SetButtonsAvailability();
             }
+        }
+
+        private void SetButtonsAvailability()
+        {
+            int checkedCount = connectionsCheckedListBox.CheckedItems.Count;
+
+            customControlsPanel.EnableEditButton = (checkedCount == 1);
+            customControlsPanel.EnableDeleteButton = (checkedCount > 0);
         }
     }
 }
