@@ -1,9 +1,11 @@
 ﻿using System.Windows.Forms;
+using DatabaseAnalyzer.Models;
 
 namespace DatabaseAnalyzer.Forms
 {
     public partial class ConnectPage : UserControl
     {
+        private List<Connection> _connections = new List<Connection>();
         private int lastSelectedIndex = -1;
 
         public ConnectPage()
@@ -20,7 +22,6 @@ namespace DatabaseAnalyzer.Forms
             customControlsPanel.AddClicked += (s, e) => AddConnection();
             customControlsPanel.EditClicked += (s, e) => EditConnection();
             customControlsPanel.DeleteClicked += (s, e) => DeleteConnection();
-            customControlsPanel.RefreshClicked += (s, e) => RefreshConnections();
         }
 
         private void DetailsPanel_Paint(object? sender, PaintEventArgs e)
@@ -52,10 +53,15 @@ namespace DatabaseAnalyzer.Forms
 
         private void LoadDetailsFor(int index)
         {
-            conNameTextBox.Text = "test";
-            hostnameTextBox.Text = "test";
-            portTextBox.Text = "test";
-            sidTextBox.Text = "test";
+            if (index < 0 || index >= _connections.Count)
+                return;
+
+            var conn = _connections[index];
+
+            conNameTextBox.Text = conn.Name;
+            hostnameTextBox.Text = conn.Hostname;
+            portTextBox.Text = conn.Port.ToString();
+            sidTextBox.Text = conn.SID;
         }
 
         private void ClearDetailFields()
@@ -96,18 +102,43 @@ namespace DatabaseAnalyzer.Forms
 
         private void AddConnection()
         {
+            var addModal = new AddConnectionModal();
+            if (addModal.ShowDialog() == DialogResult.OK)
+            {
+                var connection = addModal._connection;
+                _connections.Add(connection);
+
+                connectionsCheckedListBox.Items.Add(connection.Name, false);
+            }
         }
 
         private void EditConnection()
         {
+            int idx = connectionsCheckedListBox.SelectedIndex;
+            if (idx == -1)
+                return;
+
+            var editModal = new AddConnectionModal(_connections[idx]);
+            if (editModal.ShowDialog() == DialogResult.OK)
+            {
+                _connections[idx] = editModal._connection;
+                connectionsCheckedListBox.Items[idx] = editModal._connection.Name;
+            }
         }
 
         private void DeleteConnection()
         {
-        }
-
-        private void RefreshConnections()
-        {
+            int idx = connectionsCheckedListBox.SelectedIndex;
+            if (idx != -1)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete the selected connection?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    _connections.RemoveAt(idx);
+                    connectionsCheckedListBox.Items.RemoveAt(idx);
+                    connectionsCheckedListBox.SelectedIndex = -1;
+                }
+            }
         }
     }
 }

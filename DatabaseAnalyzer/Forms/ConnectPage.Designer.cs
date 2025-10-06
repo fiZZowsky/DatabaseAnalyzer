@@ -118,7 +118,6 @@
             connectionsCheckedListBox.Font = new Font("MS Reference Sans Serif", 12F);
             connectionsCheckedListBox.ForeColor = Color.White;
             connectionsCheckedListBox.FormattingEnabled = true;
-            connectionsCheckedListBox.Items.AddRange(new object[] { "test item", "test 2 item" });
             connectionsCheckedListBox.Location = new Point(0, 0);
             connectionsCheckedListBox.Name = "connectionsCheckedListBox";
             connectionsCheckedListBox.Size = new Size(482, 441);
