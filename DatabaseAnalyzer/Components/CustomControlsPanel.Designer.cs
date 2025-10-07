@@ -28,62 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            addButton = new Button();
-            editButton = new Button();
-            deleteButton = new Button();
             refreshButton = new Button();
+            addButton = new SimpleButton();
+            editButton = new SimpleButton();
+            deleteButton = new SimpleButton();
             SuspendLayout();
-            // 
-            // addButton
-            // 
-            addButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            addButton.BackColor = Color.FromArgb(36, 60, 104);
-            addButton.FlatAppearance.BorderSize = 0;
-            addButton.FlatStyle = FlatStyle.Flat;
-            addButton.Font = new Font("Segoe UI", 11F);
-            addButton.ForeColor = Color.White;
-            addButton.Image = Properties.Resources.add;
-            addButton.Location = new Point(3, 13);
-            addButton.Name = "addButton";
-            addButton.Size = new Size(85, 33);
-            addButton.TabIndex = 0;
-            addButton.Text = "Add";
-            addButton.TextImageRelation = TextImageRelation.ImageBeforeText;
-            addButton.UseVisualStyleBackColor = false;
-            // 
-            // editButton
-            // 
-            editButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            editButton.BackColor = Color.FromArgb(36, 60, 104);
-            editButton.FlatAppearance.BorderSize = 0;
-            editButton.FlatStyle = FlatStyle.Flat;
-            editButton.Font = new Font("Segoe UI", 11F);
-            editButton.ForeColor = Color.White;
-            editButton.Image = Properties.Resources.edit;
-            editButton.Location = new Point(103, 13);
-            editButton.Name = "editButton";
-            editButton.Size = new Size(85, 33);
-            editButton.TabIndex = 1;
-            editButton.Text = "Edit";
-            editButton.TextImageRelation = TextImageRelation.ImageBeforeText;
-            editButton.UseVisualStyleBackColor = false;
-            // 
-            // deleteButton
-            // 
-            deleteButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            deleteButton.BackColor = Color.FromArgb(36, 60, 104);
-            deleteButton.FlatAppearance.BorderSize = 0;
-            deleteButton.FlatStyle = FlatStyle.Flat;
-            deleteButton.Font = new Font("Segoe UI", 11F);
-            deleteButton.ForeColor = Color.White;
-            deleteButton.Image = Properties.Resources.delete;
-            deleteButton.Location = new Point(204, 13);
-            deleteButton.Name = "deleteButton";
-            deleteButton.Size = new Size(85, 33);
-            deleteButton.TabIndex = 2;
-            deleteButton.Text = "Delete";
-            deleteButton.TextImageRelation = TextImageRelation.ImageBeforeText;
-            deleteButton.UseVisualStyleBackColor = false;
             // 
             // refreshButton
             // 
@@ -102,15 +51,67 @@
             refreshButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             refreshButton.UseVisualStyleBackColor = false;
             // 
+            // addButton
+            // 
+            addButton.Anchor = AnchorStyles.Left;
+            addButton.BackColor = Color.FromArgb(36, 60, 104);
+            addButton.FlatAppearance.BorderSize = 0;
+            addButton.FlatStyle = FlatStyle.Flat;
+            addButton.Font = new Font("Segoe UI", 11F);
+            addButton.ForeColor = Color.White;
+            addButton.Image = Properties.Resources.add;
+            addButton.Location = new Point(3, 12);
+            addButton.Margin = new Padding(3, 4, 3, 4);
+            addButton.Name = "addButton";
+            addButton.Size = new Size(85, 33);
+            addButton.TabIndex = 4;
+            addButton.Text = "Add";
+            addButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+            addButton.UseVisualStyleBackColor = false;
+            // 
+            // editButton
+            // 
+            editButton.BackColor = Color.FromArgb(36, 60, 104);
+            editButton.FlatAppearance.BorderSize = 0;
+            editButton.FlatStyle = FlatStyle.Flat;
+            editButton.Font = new Font("Segoe UI", 11F);
+            editButton.ForeColor = Color.White;
+            editButton.Image = Properties.Resources.edit;
+            editButton.Location = new Point(106, 13);
+            editButton.Margin = new Padding(3, 4, 3, 4);
+            editButton.Name = "editButton";
+            editButton.Size = new Size(85, 33);
+            editButton.TabIndex = 5;
+            editButton.Text = "Edit";
+            editButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+            editButton.UseVisualStyleBackColor = false;
+            // 
+            // deleteButton
+            // 
+            deleteButton.BackColor = Color.FromArgb(36, 60, 104);
+            deleteButton.FlatAppearance.BorderSize = 0;
+            deleteButton.FlatStyle = FlatStyle.Flat;
+            deleteButton.Font = new Font("Segoe UI", 11F);
+            deleteButton.ForeColor = Color.White;
+            deleteButton.Image = Properties.Resources.delete;
+            deleteButton.Location = new Point(209, 13);
+            deleteButton.Margin = new Padding(3, 4, 3, 4);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(85, 33);
+            deleteButton.TabIndex = 6;
+            deleteButton.Text = "Delete";
+            deleteButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+            deleteButton.UseVisualStyleBackColor = false;
+            // 
             // CustomControlsPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 29, 34);
-            Controls.Add(refreshButton);
             Controls.Add(deleteButton);
             Controls.Add(editButton);
             Controls.Add(addButton);
+            Controls.Add(refreshButton);
             MaximumSize = new Size(0, 60);
             MinimumSize = new Size(0, 60);
             Name = "CustomControlsPanel";
@@ -119,10 +120,9 @@
         }
 
         #endregion
-
-        private Button addButton;
-        private Button editButton;
-        private Button deleteButton;
         private Button refreshButton;
+        private SimpleButton addButton;
+        private SimpleButton editButton;
+        private SimpleButton deleteButton;
     }
 }

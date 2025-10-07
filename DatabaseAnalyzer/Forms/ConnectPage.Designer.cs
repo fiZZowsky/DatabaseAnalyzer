@@ -40,10 +40,10 @@
             conNameTextBox = new TextBox();
             detailsLabel = new Label();
             hostnameLabel = new Label();
-            sidLabel = new Label();
+            sidServiceNameLabel = new Label();
             hostnameTextBox = new TextBox();
             portTextBox = new TextBox();
-            sidTextBox = new TextBox();
+            sidServiceNameTextBox = new TextBox();
             titlePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)connectionsSplitContainer).BeginInit();
             connectionsSplitContainer.Panel1.SuspendLayout();
@@ -143,10 +143,10 @@
             detailsTableLayoutPanel.Controls.Add(conNameTextBox, 0, 3);
             detailsTableLayoutPanel.Controls.Add(detailsLabel, 0, 0);
             detailsTableLayoutPanel.Controls.Add(hostnameLabel, 0, 5);
-            detailsTableLayoutPanel.Controls.Add(sidLabel, 0, 8);
+            detailsTableLayoutPanel.Controls.Add(sidServiceNameLabel, 0, 8);
             detailsTableLayoutPanel.Controls.Add(hostnameTextBox, 0, 6);
             detailsTableLayoutPanel.Controls.Add(portTextBox, 1, 6);
-            detailsTableLayoutPanel.Controls.Add(sidTextBox, 0, 9);
+            detailsTableLayoutPanel.Controls.Add(sidServiceNameTextBox, 0, 9);
             detailsTableLayoutPanel.Dock = DockStyle.Fill;
             detailsTableLayoutPanel.Location = new Point(3, 3);
             detailsTableLayoutPanel.Name = "detailsTableLayoutPanel";
@@ -228,17 +228,17 @@
             hostnameLabel.TabIndex = 3;
             hostnameLabel.Text = "Hostname";
             // 
-            // sidLabel
+            // sidServiceNameLabel
             // 
-            sidLabel.AutoSize = true;
-            sidLabel.Dock = DockStyle.Fill;
-            sidLabel.Font = new Font("Segoe UI", 12F);
-            sidLabel.ForeColor = Color.White;
-            sidLabel.Location = new Point(3, 213);
-            sidLabel.Name = "sidLabel";
-            sidLabel.Size = new Size(151, 21);
-            sidLabel.TabIndex = 5;
-            sidLabel.Text = "SID";
+            sidServiceNameLabel.AutoSize = true;
+            sidServiceNameLabel.Dock = DockStyle.Fill;
+            sidServiceNameLabel.Font = new Font("Segoe UI", 12F);
+            sidServiceNameLabel.ForeColor = Color.White;
+            sidServiceNameLabel.Location = new Point(3, 213);
+            sidServiceNameLabel.Name = "sidServiceNameLabel";
+            sidServiceNameLabel.Size = new Size(151, 21);
+            sidServiceNameLabel.TabIndex = 5;
+            sidServiceNameLabel.Text = "SID";
             // 
             // hostnameTextBox
             // 
@@ -270,20 +270,20 @@
             portTextBox.Size = new Size(146, 22);
             portTextBox.TabIndex = 7;
             // 
-            // sidTextBox
+            // sidServiceNameTextBox
             // 
-            sidTextBox.BackColor = Color.FromArgb(28, 29, 34);
-            sidTextBox.BorderStyle = BorderStyle.None;
-            sidTextBox.Dock = DockStyle.Fill;
-            sidTextBox.Enabled = false;
-            sidTextBox.Font = new Font("Segoe UI", 12F);
-            sidTextBox.ForeColor = Color.White;
-            sidTextBox.Location = new Point(9, 237);
-            sidTextBox.Margin = new Padding(9, 3, 3, 3);
-            sidTextBox.Name = "sidTextBox";
-            sidTextBox.ReadOnly = true;
-            sidTextBox.Size = new Size(145, 22);
-            sidTextBox.TabIndex = 8;
+            sidServiceNameTextBox.BackColor = Color.FromArgb(28, 29, 34);
+            sidServiceNameTextBox.BorderStyle = BorderStyle.None;
+            sidServiceNameTextBox.Dock = DockStyle.Fill;
+            sidServiceNameTextBox.Enabled = false;
+            sidServiceNameTextBox.Font = new Font("Segoe UI", 12F);
+            sidServiceNameTextBox.ForeColor = Color.White;
+            sidServiceNameTextBox.Location = new Point(9, 237);
+            sidServiceNameTextBox.Margin = new Padding(9, 3, 3, 3);
+            sidServiceNameTextBox.Name = "sidServiceNameTextBox";
+            sidServiceNameTextBox.ReadOnly = true;
+            sidServiceNameTextBox.Size = new Size(145, 22);
+            sidServiceNameTextBox.TabIndex = 8;
             // 
             // ConnectPage
             // 
@@ -322,9 +322,9 @@
         private TextBox conNameTextBox;
         private Label detailsLabel;
         private Label hostnameLabel;
-        private Label sidLabel;
+        private Label sidServiceNameLabel;
         private TextBox hostnameTextBox;
         private TextBox portTextBox;
-        private TextBox sidTextBox;
+        private TextBox sidServiceNameTextBox;
     }
 }

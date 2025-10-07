@@ -14,10 +14,11 @@ namespace DatabaseAnalyzer.Forms
 
             connectionsSplitContainer.Panel2Collapsed = true;
             lastSelectedIndex = -1;
-
+            
             detailsPanel.Paint += DetailsPanel_Paint;
             connectionsCheckedListBox.MouseDown += ConnectionsCheckedListBox_MouseDown;
             connectionsCheckedListBox.SelectedIndexChanged += ConnectionsCheckedListBox_SelectedIndexChanged;
+            connectionsCheckedListBox.ItemCheck += ConnectionsCheckedListBox_ItemCheck;
 
             customControlsPanel.AddClicked += (s, e) => AddConnection();
             customControlsPanel.EditClicked += (s, e) => EditConnection();
@@ -32,13 +33,6 @@ namespace DatabaseAnalyzer.Forms
             {
                 e.Graphics.DrawRectangle(pen, 0, 0, detailsPanel.Width - 1, detailsPanel.Height - 1);
             }
-        }
-
-        private void ConnectPage_Load(object? sender, EventArgs e)
-        {
-            SetButtonsAvailability();
-
-            connectionsCheckedListBox.ItemCheck += ConnectionsCheckedListBox_ItemCheck;
         }
 
         private void ConnectionsCheckedListBox_ItemCheck(object? sender, ItemCheckEventArgs e)
@@ -61,8 +55,6 @@ namespace DatabaseAnalyzer.Forms
                 connectionsSplitContainer.Panel2Collapsed = false;
                 LoadDetailsFor(idx);
             }
-
-            SetButtonsAvailability();
         }
 
         private void LoadDetailsFor(int index)
@@ -75,7 +67,17 @@ namespace DatabaseAnalyzer.Forms
             conNameTextBox.Text = conn.Name;
             hostnameTextBox.Text = conn.Hostname;
             portTextBox.Text = conn.Port.ToString();
-            sidTextBox.Text = conn.SID;
+
+            if (string.IsNullOrEmpty(conn.SID))
+            {
+                sidServiceNameLabel.Text = "Service name";
+                sidServiceNameTextBox.Text = conn.ServiceName;
+            }
+            else
+            {
+                sidServiceNameLabel.Text = "SID";
+                sidServiceNameTextBox.Text = conn.SID;;
+            }
         }
 
         private void ClearDetailFields()
@@ -83,7 +85,7 @@ namespace DatabaseAnalyzer.Forms
             conNameTextBox.Text = string.Empty;
             hostnameTextBox.Text = string.Empty;
             portTextBox.Text = string.Empty;
-            sidTextBox.Text = string.Empty;
+            sidServiceNameTextBox.Text = string.Empty;
         }
 
         private void ConnectionsCheckedListBox_MouseDown(object? sender, MouseEventArgs e)
