@@ -90,6 +90,9 @@ public partial class AddConnectionModal : Form
             
             if (serviceNameRadioButton.Checked)
                 serviceNameRadioButton.Checked = false;
+
+            sidPanel.BackColor = Color.DarkSlateGray;
+            serviceNamePanel.BackColor = Color.FromArgb(45, 46, 55);
         }
         else if (serviceNameRadioButton.Checked)
         {
@@ -99,6 +102,9 @@ public partial class AddConnectionModal : Form
 
             if (sidRadioButton.Checked)
                 sidRadioButton.Checked = false;
+
+            sidPanel.BackColor = Color.FromArgb(45, 46, 55);
+            serviceNamePanel.BackColor = Color.DarkSlateGray;
         }
 
         sidRadioButton.CheckedChanged += SIDRadioButton_CheckedChanged;
@@ -141,9 +147,90 @@ public partial class AddConnectionModal : Form
         _connection.Name = conNameTextBox.Text;
     }
 
+    private bool IsModelValid()
+    {
+        bool isValid = true;
+        if (string.IsNullOrWhiteSpace(_connection.Name))
+        {
+            conNamePanel.BackColor = Color.Crimson;
+            isValid = false;
+        }
+        else
+            conNamePanel.BackColor = Color.DarkSlateGray;
+
+        if (string.IsNullOrWhiteSpace(_connection.Hostname))
+        {
+            hostnamePanel.BackColor = Color.Crimson;
+            isValid = false;
+        }
+        else
+            hostnamePanel.BackColor = Color.DarkSlateGray;
+
+        if (_connection.Port == null || _connection.Port <= 0)
+        {
+            portPanel.BackColor = Color.Crimson;
+            isValid = false;
+        }
+        else
+            portPanel.BackColor = Color.DarkSlateGray;
+
+        if (string.IsNullOrWhiteSpace(_connection.Username))
+        {
+            usernamePanel.BackColor = Color.Crimson;
+            isValid = false;
+        }
+        else
+            usernamePanel.BackColor = Color.DarkSlateGray;
+
+        if (string.IsNullOrWhiteSpace(_connection.Password))
+        {
+            passwordPanel.BackColor = Color.Crimson;
+            isValid = false;
+        }
+        else
+            passwordPanel.BackColor = Color.DarkSlateGray;
+
+        if (sidRadioButton.Checked)
+        {
+            if (string.IsNullOrWhiteSpace(_connection.SID))
+            {
+                sidPanel.BackColor = Color.Crimson;
+                isValid = false;
+            }
+            else
+                sidPanel.BackColor = Color.DarkSlateGray;
+
+            serviceNamePanel.BackColor = Color.FromArgb(45, 46, 55);
+        }
+        else if (serviceNameRadioButton.Checked)
+        {
+            if (string.IsNullOrWhiteSpace(_connection.ServiceName))
+            {
+                serviceNamePanel.BackColor = Color.Crimson;
+                isValid = false;
+            }
+            else
+                serviceNamePanel.BackColor = Color.DarkSlateGray;
+
+            sidPanel.BackColor = Color.FromArgb(45, 46, 55);
+        }
+        else
+        {
+            sidPanel.BackColor = Color.DarkSlateGray;
+            serviceNamePanel.BackColor = Color.DarkSlateGray;
+        }
+
+        return isValid;
+    }
+
     private void Accept()
     {
-        // Validate and save connection details
+        if (!IsModelValid())
+        {
+            MessageBox.Show("Please fill in all required fields.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
         this.DialogResult = DialogResult.OK;
         this.Close();
     }
