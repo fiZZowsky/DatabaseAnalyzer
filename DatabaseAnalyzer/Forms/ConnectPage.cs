@@ -117,6 +117,13 @@ namespace DatabaseAnalyzer.Forms
                     connectionsCheckedListBox.SelectedIndex = -1;
                 return;
             }
+            
+            Rectangle itemRect = connectionsCheckedListBox.GetItemRectangle(idx);
+            
+            if (e.X < itemRect.Left + 20)
+            {
+                return;
+            }
 
             if (idx == lastSelectedIndex)
             {

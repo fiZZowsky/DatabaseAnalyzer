@@ -40,14 +40,10 @@
             chkColumns = new CheckBox();
             chkTriggers1 = new CheckBox();
             chkSequences = new CheckBox();
-            chkForeignKeys1 = new CheckBox();
             chkViews = new CheckBox();
             chkProcedures = new CheckBox();
             chkFunctions = new CheckBox();
             chkPackages = new CheckBox();
-            chkTriggers2 = new CheckBox();
-            chkForeignKeys2 = new CheckBox();
-            chkPrimaryKeys = new CheckBox();
             tlpConnections = new TableLayoutPanel();
             cmbDb1 = new ComboBox();
             cmbDb2 = new ComboBox();
@@ -126,14 +122,10 @@
             tlpCompareOptions.Controls.Add(chkColumns, 0, 3);
             tlpCompareOptions.Controls.Add(chkTriggers1, 0, 4);
             tlpCompareOptions.Controls.Add(chkSequences, 0, 5);
-            tlpCompareOptions.Controls.Add(chkForeignKeys1, 0, 6);
             tlpCompareOptions.Controls.Add(chkViews, 1, 0);
             tlpCompareOptions.Controls.Add(chkProcedures, 1, 1);
             tlpCompareOptions.Controls.Add(chkFunctions, 1, 2);
             tlpCompareOptions.Controls.Add(chkPackages, 1, 3);
-            tlpCompareOptions.Controls.Add(chkTriggers2, 1, 4);
-            tlpCompareOptions.Controls.Add(chkForeignKeys2, 1, 5);
-            tlpCompareOptions.Controls.Add(chkPrimaryKeys, 1, 6);
             tlpCompareOptions.Dock = DockStyle.Fill;
             tlpCompareOptions.Location = new Point(15, 15);
             tlpCompareOptions.Name = "tlpCompareOptions";
@@ -232,20 +224,6 @@
             chkSequences.Text = "Sequences";
             chkSequences.UseVisualStyleBackColor = true;
             // 
-            // chkForeignKeys1
-            // 
-            chkForeignKeys1.Checked = true;
-            chkForeignKeys1.CheckState = CheckState.Checked;
-            chkForeignKeys1.Dock = DockStyle.Top;
-            chkForeignKeys1.Font = new Font("Segoe UI", 11.25F);
-            chkForeignKeys1.ForeColor = Color.White;
-            chkForeignKeys1.Location = new Point(3, 213);
-            chkForeignKeys1.Name = "chkForeignKeys1";
-            chkForeignKeys1.Size = new Size(360, 24);
-            chkForeignKeys1.TabIndex = 6;
-            chkForeignKeys1.Text = "Foregin Keys";
-            chkForeignKeys1.UseVisualStyleBackColor = true;
-            // 
             // chkViews
             // 
             chkViews.Checked = true;
@@ -301,48 +279,6 @@
             chkPackages.TabIndex = 10;
             chkPackages.Text = "Packages";
             chkPackages.UseVisualStyleBackColor = true;
-            // 
-            // chkTriggers2
-            // 
-            chkTriggers2.Checked = true;
-            chkTriggers2.CheckState = CheckState.Checked;
-            chkTriggers2.Dock = DockStyle.Top;
-            chkTriggers2.Font = new Font("Segoe UI", 11.25F);
-            chkTriggers2.ForeColor = Color.White;
-            chkTriggers2.Location = new Point(369, 143);
-            chkTriggers2.Name = "chkTriggers2";
-            chkTriggers2.Size = new Size(361, 24);
-            chkTriggers2.TabIndex = 11;
-            chkTriggers2.Text = "Triggers";
-            chkTriggers2.UseVisualStyleBackColor = true;
-            // 
-            // chkForeignKeys2
-            // 
-            chkForeignKeys2.Checked = true;
-            chkForeignKeys2.CheckState = CheckState.Checked;
-            chkForeignKeys2.Dock = DockStyle.Top;
-            chkForeignKeys2.Font = new Font("Segoe UI", 11.25F);
-            chkForeignKeys2.ForeColor = Color.White;
-            chkForeignKeys2.Location = new Point(369, 178);
-            chkForeignKeys2.Name = "chkForeignKeys2";
-            chkForeignKeys2.Size = new Size(361, 24);
-            chkForeignKeys2.TabIndex = 12;
-            chkForeignKeys2.Text = "Foreign Keys";
-            chkForeignKeys2.UseVisualStyleBackColor = true;
-            // 
-            // chkPrimaryKeys
-            // 
-            chkPrimaryKeys.Checked = true;
-            chkPrimaryKeys.CheckState = CheckState.Checked;
-            chkPrimaryKeys.Dock = DockStyle.Top;
-            chkPrimaryKeys.Font = new Font("Segoe UI", 11.25F);
-            chkPrimaryKeys.ForeColor = Color.White;
-            chkPrimaryKeys.Location = new Point(369, 213);
-            chkPrimaryKeys.Name = "chkPrimaryKeys";
-            chkPrimaryKeys.Size = new Size(361, 24);
-            chkPrimaryKeys.TabIndex = 13;
-            chkPrimaryKeys.Text = "Primary Keys";
-            chkPrimaryKeys.UseVisualStyleBackColor = true;
             // 
             // tlpConnections
             // 
@@ -422,14 +358,10 @@
         private System.Windows.Forms.CheckBox chkColumns;
         private System.Windows.Forms.CheckBox chkTriggers1;
         private System.Windows.Forms.CheckBox chkSequences;
-        private System.Windows.Forms.CheckBox chkForeignKeys1;
         private System.Windows.Forms.CheckBox chkViews;
         private System.Windows.Forms.CheckBox chkProcedures;
         private System.Windows.Forms.CheckBox chkFunctions;
         private System.Windows.Forms.CheckBox chkPackages;
-        private System.Windows.Forms.CheckBox chkTriggers2;
-        private System.Windows.Forms.CheckBox chkForeignKeys2;
-        private System.Windows.Forms.CheckBox chkPrimaryKeys;
         private System.Windows.Forms.TableLayoutPanel tlpConnections;
         private System.Windows.Forms.ComboBox cmbDb1;
         private System.Windows.Forms.ComboBox cmbDb2;
