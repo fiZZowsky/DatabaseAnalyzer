@@ -1,20 +1,29 @@
 ﻿using System.Windows.Forms;
 using DatabaseAnalyzer.Models;
+using DatabaseAnalyzer.Services;
+using DatabaseAnalyzer.Repositories;
 
 namespace DatabaseAnalyzer.Forms
 {
     public partial class ConnectPage : UserControl
     {
-        private List<Connection> _connections = new List<Connection>();
+        private readonly IConnectionService _connectionService;
+        private List<Connection> _connections;
         private int lastSelectedIndex = -1;
 
         public ConnectPage()
         {
             InitializeComponent();
 
+            var dbContext = new DbContext();
+            IConnectionRepository connectionRepository = new ConnectionRepository(dbContext);
+            _connectionService = new ConnectionService(connectionRepository);
+
+            LoadConnections();
+
             connectionsSplitContainer.Panel2Collapsed = true;
             lastSelectedIndex = -1;
-            
+
             detailsPanel.Paint += DetailsPanel_Paint;
             connectionsCheckedListBox.MouseDown += ConnectionsCheckedListBox_MouseDown;
             connectionsCheckedListBox.SelectedIndexChanged += ConnectionsCheckedListBox_SelectedIndexChanged;
@@ -25,6 +34,17 @@ namespace DatabaseAnalyzer.Forms
             customControlsPanel.DeleteClicked += (s, e) => DeleteConnection();
 
             SetButtonsAvailability();
+        }
+
+        private void LoadConnections()
+        {
+            _connections = _connectionService.GetConnections();
+
+            connectionsCheckedListBox.Items.Clear();
+            foreach (var conn in _connections)
+            {
+                connectionsCheckedListBox.Items.Add(conn.Name, false);
+            }
         }
 
         private void DetailsPanel_Paint(object? sender, PaintEventArgs e)
@@ -76,7 +96,7 @@ namespace DatabaseAnalyzer.Forms
             else
             {
                 sidServiceNameLabel.Text = "SID";
-                sidServiceNameTextBox.Text = conn.SID;;
+                sidServiceNameTextBox.Text = conn.SID; ;
             }
         }
 
@@ -114,8 +134,10 @@ namespace DatabaseAnalyzer.Forms
             if (addModal.ShowDialog() == DialogResult.OK)
             {
                 var connection = addModal._connection;
-                _connections.Add(connection);
 
+                _connectionService.SaveConnection(connection);
+
+                _connections.Add(connection);
                 connectionsCheckedListBox.Items.Add(connection.Name, false);
             }
         }
@@ -126,11 +148,15 @@ namespace DatabaseAnalyzer.Forms
                 return;
 
             int idx = connectionsCheckedListBox.CheckedIndices[0];
-            var editModal = new AddConnectionModal(_connections[idx]);
+            var connectionToEdit = _connections[idx];
+            var editModal = new AddConnectionModal(connectionToEdit);
 
             if (editModal.ShowDialog() == DialogResult.OK)
             {
                 _connections[idx] = editModal._connection;
+
+                _connectionService.SaveConnection(_connections[idx]);
+
                 connectionsCheckedListBox.Items[idx] = editModal._connection.Name;
             }
         }
@@ -153,6 +179,10 @@ namespace DatabaseAnalyzer.Forms
 
                 foreach (var idx in indicesToRemove)
                 {
+                    int connectionId = _connections[idx].Id;
+
+                    _connectionService.DeleteConnection(connectionId);
+
                     _connections.RemoveAt(idx);
                     connectionsCheckedListBox.Items.RemoveAt(idx);
                 }
